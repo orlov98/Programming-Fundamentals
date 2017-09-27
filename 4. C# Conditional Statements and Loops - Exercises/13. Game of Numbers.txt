@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            int m = int.Parse(Console.ReadLine());
+            int magical = int.Parse(Console.ReadLine());
+            if (n >= m)
+            {
+                int c = n;
+                n = m;
+                m = c;
+            }
+            int br = 0;
+            int n1 = 0, m1 = 0, x = 0;
+            for (int i = n; i <= m; i++)
+            {
+                for (int k = n; k <= m; k++)
+                {
+                    br++;
+                    if (i + k == magical)
+                    {
+                        n1 = i;
+                        m1 = k;
+                        x = 1;
+                    }
+                }
+            }
+            if (x == 0)
+            {
+                Console.WriteLine(br + " combinations - neither equals " + magical);
+            }
+            else
+                Console.WriteLine("Number found! {0} + {1} = {2}", n1, m1, magical);
+            
+        }
+    }
+}

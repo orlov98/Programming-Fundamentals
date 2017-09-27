@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication25
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string name = Console.ReadLine();
+            int h = int.Parse(Console.ReadLine());
+            int maxh = int.Parse(Console.ReadLine());
+            int e = int.Parse(Console.ReadLine());
+            int maxe = int.Parse(Console.ReadLine());
+            Console.WriteLine("Name: " + name);
+            Console.WriteLine("Health: |{0}{1}|", new string('|', h), new string('.', maxh - h));
+            Console.WriteLine("Energy: |{0}{1}|", new string('|', e), new string('.', maxe - e));
+        }
+    }
+}

@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication28
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string month = Console.ReadLine();
+            int nights = int.Parse(Console.ReadLine());
+            double StudioPrice = 0;
+            double DoublePrice = 0;
+            double SuitePrice = 0;
+            if (month == "May" || month == "October")
+            {
+                StudioPrice = 50;
+                DoublePrice = 65;
+                SuitePrice = 75;
+                if (nights > 7)
+                    StudioPrice = StudioPrice - StudioPrice * 5 / 100.0;
+            }
+            else if (month == "June" || month == "September")
+            {
+                StudioPrice = 60;
+                DoublePrice = 72;
+                SuitePrice = 82;
+                if (nights > 14)
+                    DoublePrice = DoublePrice - DoublePrice * 10 / 100.0;
+            }
+            else if (month == "July" || month == "August" || month == "December")
+            {
+                StudioPrice = 68;
+                DoublePrice = 77;
+                SuitePrice = 89;
+                if (nights > 14)
+                    SuitePrice = SuitePrice - SuitePrice * 15 / 100.0;
+            }
+            if (month == "September" || month == "October")
+            {
+                if (nights > 7)
+                    StudioPrice = StudioPrice * (nights - 1);
+                else
+                    StudioPrice = StudioPrice * nights;
+            }
+            else
+                StudioPrice = StudioPrice * nights;
+            DoublePrice = DoublePrice * nights;
+            SuitePrice = SuitePrice * nights;
+            Console.WriteLine("Studio: {0:f2} lv.", StudioPrice);
+            Console.WriteLine("Double: {0:f2} lv.", DoublePrice);
+            Console.WriteLine("Suite: {0:f2} lv.", SuitePrice);
+        }
+    }
+}

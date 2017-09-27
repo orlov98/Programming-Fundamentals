@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication28
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int people = int.Parse(Console.ReadLine());
+            string package = Console.ReadLine();
+            double price = 0;
+            double discount = 0;
+            if (people <= 50)
+            {
+                price = 2500;
+                Console.WriteLine("We can offer you the Small Hall");
+            }
+            else if (people <= 100)
+            {
+                price = 5000;
+                Console.WriteLine("We can offer you the Terrace");
+            }
+            else if (people <= 120)
+            {
+                price = 7500;
+                Console.WriteLine("We can offer you the Great Hall");
+            }
+            else
+            {
+                Console.WriteLine("We do not have an appropriate hall.");
+                return;
+            }
+            if (package == "Normal")
+            {
+                price = price + 500;
+                discount = 5 / 100.0;
+            }
+            else if (package == "Gold")
+            {
+                price = price + 750;
+                discount = 10 / 100.0;
+            }
+            else if (package == "Platinum")
+            {
+                price = price + 1000;
+                discount = 15 / 100.0;
+            }
+            price = price - price * discount;
+            price = price / people;
+            Console.WriteLine("The price per person is {0:f2}$", price);
+        }
+    }
+}

@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication26
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            do
+            {
+                n = int.Parse(Console.ReadLine());
+                if (n % 2 == 0)
+                    Console.WriteLine("Please write an odd number.");
+            }
+            while (n % 2 == 0);
+            Console.WriteLine("The number is: " + Math.Abs(n));
+        }
+    }
+}

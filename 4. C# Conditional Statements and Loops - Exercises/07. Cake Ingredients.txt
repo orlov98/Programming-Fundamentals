@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication28
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a;
+            int br = 0;
+            do
+            {
+                a = Console.ReadLine();
+                if (a!="Bake!")
+                {
+                    br++;
+                    Console.WriteLine("Adding ingredient {0}.", a);
+                }
+            }
+            while (a != "Bake!");
+            Console.WriteLine("Preparing cake with {0} ingredients.", br);
+        }
+    }
+}

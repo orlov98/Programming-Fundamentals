@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication25
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = int.Parse(Console.ReadLine());
+            int b = int.Parse(Console.ReadLine());
+            int c = int.Parse(Console.ReadLine());
+            int d = int.Parse(Console.ReadLine());
+            Console.WriteLine("{0} {1} {2} {3}", a.ToString("D4"), b.ToString("D4"), c.ToString("D4"), d.ToString("D4"));
+        }
+    }
+}
