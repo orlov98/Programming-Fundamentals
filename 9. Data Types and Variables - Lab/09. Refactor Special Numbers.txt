@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            for (int number = 1; number <= n; number++)
+            {
+                int num = number;
+                int sum = 0;
+                while (num > 0)
+                {
+                    sum += num % 10;
+                    num = num / 10;
+                }
+                if (sum == 5 || sum == 7 || sum == 11)
+                    Console.WriteLine($"{number} -> True");
+                else
+                    Console.WriteLine($"{number} -> False");
+            }
+
+        }
+    }
+}
