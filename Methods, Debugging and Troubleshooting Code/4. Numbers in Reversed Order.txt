@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication34
+{
+    class Program
+    {
+        static void NumberInReversedOrder(string number)
+        {
+            for (int i = number.Length - 1; i >= 0; i--)
+            {
+                Console.Write(number[i]);
+            }
+            Console.WriteLine();
+        }
+        static void Main(string[] args)
+        {
+            double num = double.Parse(Console.ReadLine());
+            string number = num.ToString();
+            NumberInReversedOrder(number);
+        }
+    }
+}

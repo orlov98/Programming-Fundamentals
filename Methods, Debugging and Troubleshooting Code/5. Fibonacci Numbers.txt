@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication34
+{
+    class Program
+    {
+        static int Fib(int n)
+        {
+            int a = 1;
+            int b = 1;
+            for (int i = 1; i < n; i++)
+            {
+                int c = b;
+                b = a + b;
+                a = c;
+            }
+            return b;
+        }
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine(Fib(n));
+        }
+    }
+}
