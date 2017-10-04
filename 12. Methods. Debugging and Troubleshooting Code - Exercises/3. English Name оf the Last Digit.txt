@@ -8,11 +8,11 @@ namespace ConsoleApplication34
 {
     class Program
     {
-        static string NameOfLastDigit(int number)
+        static string NameOfLastDigit(long number)
         {
             string nameOfDigit = "";
             switch (number % 10)
-            { 
+            {
                 case 1:
                     nameOfDigit = "one";
                     break;
@@ -23,13 +23,13 @@ namespace ConsoleApplication34
                     nameOfDigit = "three";
                     break;
                 case 4:
-                    nameOfDigit = "four"; ;
+                    nameOfDigit = "four";
                     break;
                 case 5:
-                    nameOfDigit = "five"; ;
+                    nameOfDigit = "five";
                     break;
                 case 6:
-                    nameOfDigit = "six"; ;
+                    nameOfDigit = "six";
                     break;
                 case 7:
                     nameOfDigit = "seven";
@@ -48,8 +48,8 @@ namespace ConsoleApplication34
         }
         static void Main(string[] args)
         {
-            int number = int.Parse(Console.ReadLine());
-            Console.WriteLine(NameOfLastDigit(number));
+            long number = long.Parse(Console.ReadLine());
+            Console.WriteLine(NameOfLastDigit(Math.Abs(number)));
         }
     }
 }
