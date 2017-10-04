@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication31
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = int.Parse(Console.ReadLine());
+            for (int num = 2; num <= number; num++)
+            {
+                bool prime = true;
+                for (int divisor = 2; divisor <= Math.Sqrt(num); divisor++)
+                {
+                    if (num % divisor == 0)
+                    {
+                        prime = false;
+                        break;
+                    }
+                }
+                Console.WriteLine($"{num} -> {prime}");
+            }
+
+        }
+    }
+}

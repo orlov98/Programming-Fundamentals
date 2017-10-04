@@ -1,0 +1,135 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string num = Console.ReadLine();
+            bool numParse;
+            try
+            {
+                sbyte numSB = sbyte.Parse(num);
+                Console.WriteLine($"{num} can fit in:");
+                Console.WriteLine("* sbyte");
+                try
+                {
+                    byte numB = byte.Parse(num);
+                    numParse = true;
+                }
+                catch (OverflowException)
+                {
+                    numParse = false;
+                }
+                if (numParse == true)
+                    Console.WriteLine("* byte");
+                Console.WriteLine("* short");
+                if (numParse == true)
+                    Console.WriteLine("* ushort");
+                Console.WriteLine("* int");
+                if (numParse == true)
+                    Console.WriteLine("* uint");
+                Console.WriteLine("* long");
+            }
+            catch (OverflowException)
+            {
+                try
+                {
+                    byte numB = byte.Parse(num);
+                    Console.WriteLine($"{num} can fit in:");
+                    Console.WriteLine("* byte");
+                    Console.WriteLine("* short");
+                    Console.WriteLine("* ushort");
+                    Console.WriteLine("* int");
+                    Console.WriteLine("* uint");
+                    Console.WriteLine("* long");
+                }
+                catch (OverflowException)
+                {
+                    try
+                    {
+                        short numS = short.Parse(num);
+                        Console.WriteLine($"{num} can fit in:");
+                        Console.WriteLine("* short");
+                        try
+                        {
+                            ushort numUS = ushort.Parse(num);
+                            numParse = true;
+                        }
+                        catch (OverflowException)
+                        {
+                            numParse = false;
+                        }
+                        if (numParse == true)
+                            Console.WriteLine("* ushort");
+                        Console.WriteLine("* int");
+                        if (numParse == true)
+                            Console.WriteLine("* uint");
+                        Console.WriteLine("* long");
+                    }
+                    catch (OverflowException)
+                    {
+                        try
+                        {
+                            ushort numUS = ushort.Parse(num);
+                            Console.WriteLine($"{num} can fit in:");
+                            Console.WriteLine("* ushort");
+                            Console.WriteLine("* int");
+                            Console.WriteLine("* uint");
+                            Console.WriteLine("* long");
+                        }
+                        catch (OverflowException)
+                        {
+                            try
+                            {
+                                int numI = int.Parse(num);
+                                Console.WriteLine($"{num} can fit in:");
+                                Console.WriteLine("* int");
+                                try
+                                {
+                                    uint numUI = uint.Parse(num);
+                                    numParse = true;
+                                }
+                                catch (OverflowException)
+                                {
+                                    numParse = false;
+                                }
+                                if (numParse == true)
+                                    Console.WriteLine("* uint");
+                                Console.WriteLine("* long");
+                            }
+                            catch (OverflowException)
+                            {
+                                try
+                                {
+                                    uint numUI = uint.Parse(num);
+                                    Console.WriteLine($"{num} can fit in:");
+                                    Console.WriteLine("* uint");
+                                    Console.WriteLine("* long");
+                                }
+                                catch (OverflowException)
+                                {
+                                    try
+                                    {
+                                        long numL = long.Parse(num);
+                                        Console.WriteLine($"{num} can fit in:");
+                                        Console.WriteLine("* long");
+                                    }
+                                    catch(OverflowException)
+                                    {
+                                        Console.WriteLine($"{num} can't fit in any type");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

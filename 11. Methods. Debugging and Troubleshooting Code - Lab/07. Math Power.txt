@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication5
+{
+    class Program
+    {
+        static double RaiseToPower(double number, double power)
+        {
+            return Math.Pow(number, power);
+        }
+
+        static void Main(string[] args)
+        {
+            double num = double.Parse(Console.ReadLine());
+            double power = double.Parse(Console.ReadLine());
+            Console.WriteLine(RaiseToPower(num, power));
+        }
+    }
+}

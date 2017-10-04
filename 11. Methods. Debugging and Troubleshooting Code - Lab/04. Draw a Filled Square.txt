@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication5
+{
+    class Program
+    {
+        static void PrintLine(int n)
+        {
+            Console.WriteLine(new string('-', 2 * n));
+        }
+        static void PrintMiddle(int n)
+        {
+            for (int k = 2; k < n; k++)
+            {
+                Console.Write("-");
+                for (int i = 1; i < n; i++)
+                    Console.Write("\\/");
+                Console.WriteLine("-");
+            }
+        }
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            PrintLine(n);
+            PrintMiddle(n);
+            PrintLine(n);
+        }
+    }
+}

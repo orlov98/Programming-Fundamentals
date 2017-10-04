@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication31
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            try
+            {
+                int num = int.Parse(input);
+                Console.WriteLine("digit");
+            }
+            catch(FormatException)
+            {
+                char symbol = char.Parse(input);
+                if (symbol == 'a' || symbol == 'o' || symbol == 'u' || symbol == 'e' || symbol == 'i')
+                    Console.WriteLine("vowel");
+                else
+                    Console.WriteLine("other");
+            }
+        }
+    }
+}

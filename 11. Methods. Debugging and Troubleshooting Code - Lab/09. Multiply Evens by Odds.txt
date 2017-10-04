@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication5
+{
+    class Program
+    {
+        static int GetMultipleOfEvensAndOdds(int number)
+        {
+            int sumEven = 0;
+            int sumOdd = 0;
+            int x = number % 10;
+            if (x % 2 == 0)
+                sumEven += x;
+            else
+                sumOdd += x;
+            while(number / 10 != 0)
+            {
+                number = number / 10;
+                x = number % 10;
+                if (x % 2 == 0)
+                    sumEven += x;
+                else
+                    sumOdd += x;
+            }
+            return sumOdd * sumEven;
+        }
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine(GetMultipleOfEvensAndOdds(n));
+        }
+    }
+}

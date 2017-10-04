@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication5
+{
+    class Program
+    {
+        static void Header()
+        {
+            Console.WriteLine("CASH RECEIPT");
+            Console.WriteLine(new string('-', 30));
+        }
+        static void Body()
+        {
+            Console.WriteLine("Charged to____________________");
+            Console.WriteLine("Received by___________________");
+        }
+        static void Footer()
+        {
+            Console.WriteLine(new string('-', 30));
+            Console.WriteLine("© SoftUni");
+        }
+        static void Main(string[] args)
+        {
+            Header();
+            Body();
+            Footer();
+        }
+    }
+}
