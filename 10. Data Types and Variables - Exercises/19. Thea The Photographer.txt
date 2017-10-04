@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            long N = long.Parse(Console.ReadLine());
+            long FT = long.Parse(Console.ReadLine());
+            long FF = long.Parse(Console.ReadLine());
+            long UT = long.Parse(Console.ReadLine());
+            long FP = (long)(Math.Ceiling(N * FF / 100d));
+            long timeToFilterPics = N * FT;
+            long timeToUploadPics = FP * UT;
+            long totalTime = timeToFilterPics + timeToUploadPics;
+            TimeSpan time = TimeSpan.FromSeconds(totalTime);
+            Console.WriteLine("{0:d\\:hh\\:mm\\:ss}", time);
+        }
+    }
+}
