@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double a = double.Parse(Console.ReadLine());
+            string property = Console.ReadLine();
+            if (property == "face")
+            {
+                Console.WriteLine("{0:f2}", Math.Sqrt(2 * a * a));
+            }
+            else if (property == "space")
+            {
+                Console.WriteLine("{0:f2}", Math.Sqrt(3 * a * a));
+            }
+            else if (property == "volume")
+            {
+                Console.WriteLine("{0:f2}", Math.Pow(a, 3));
+            }
+            else if (property == "area")
+            {
+                Console.WriteLine("{0:f2}", 6 * a * a);
+            }
+        }
+    }
+}

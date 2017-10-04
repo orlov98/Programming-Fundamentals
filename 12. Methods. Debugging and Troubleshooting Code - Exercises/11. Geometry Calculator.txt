@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string figure = Console.ReadLine();
+            if (figure == "triangle")
+            {
+                double side = double.Parse(Console.ReadLine());
+                double height = double.Parse(Console.ReadLine());
+                Console.WriteLine("{0:f2}", side * height / 2);
+            }
+            else if (figure == "square")
+            {
+                double side = double.Parse(Console.ReadLine());
+                Console.WriteLine("{0:f2}", side * side);
+            }
+            else if (figure == "rectangle")
+            {
+                double width = double.Parse(Console.ReadLine());
+                double height = double.Parse(Console.ReadLine());
+                Console.WriteLine("{0:f2}", width * height);
+            }
+            else if (figure == "circle")
+            {
+                double r = double.Parse(Console.ReadLine());
+                Console.WriteLine("{0:f2}", Math.PI * r * r);
+            }
+        }
+    }
+}
