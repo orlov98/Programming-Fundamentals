@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace ConsoleApp9
+{
+    class Program
+    {
+        static int TrailingZeroes(BigInteger n)
+        {
+            string num = n.ToString();
+            int br = 0;
+            for (int i = 0; i < num.Length; i++)
+            {
+                if (num[i] == '0')
+                    br++;
+                else
+                    br = 0;
+            }
+            return br;
+        }
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            BigInteger num = 1;
+            for (int i = n; i > 0; i--)
+                num = num * i;
+            Console.WriteLine(TrailingZeroes(num));
+        }
+    }
+}

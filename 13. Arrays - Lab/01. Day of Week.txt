@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] Day = new string[7];
+            Day[0] = "Monday";
+            Day[1] = "Tuesday";
+            Day[2] = "Wednesday";
+            Day[3] = "Thursday";
+            Day[4] = "Friday";
+            Day[5] = "Saturday";
+            Day[6] = "Sunday";
+            int n = int.Parse(Console.ReadLine());
+            switch (n)
+            {
+                case 1:
+                    Console.WriteLine(Day[0]); break;
+                case 2:
+                    Console.WriteLine(Day[1]); break;
+                case 3:
+                    Console.WriteLine(Day[2]); break;
+                case 4:
+                    Console.WriteLine(Day[3]); break;
+                case 5:
+                    Console.WriteLine(Day[4]); break;
+                case 6:
+                    Console.WriteLine(Day[5]); break;
+                case 7:
+                    Console.WriteLine(Day[6]); break;
+                default:
+                    Console.WriteLine("Invalid Day!"); break;
+            }
+        }
+    }
+}

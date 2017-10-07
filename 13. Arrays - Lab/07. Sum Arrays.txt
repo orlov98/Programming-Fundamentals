@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp8
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] a = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            int[] b = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            int length1 = a.Length;
+            int length2 = b.Length;
+            int[] sum;
+            if (length1 >= length2)
+            {
+                sum = new int[length1];
+                for (int i = 0; i < length1; i++)
+                {
+                    sum[i] = a[i % length1] + b[i % length2];
+                }
+            }
+            else
+            {
+                sum = new int[length2];
+                for (int i = 0; i < length2; i++)
+                {
+                    sum[i] = a[i % length1] + b[i % length2];
+                }
+            }
+            Console.WriteLine(String.Join(" ", sum));
+        }
+    }
+}
