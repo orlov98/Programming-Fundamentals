@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication40
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> input = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToList();
+            int start = 0, length = 1,
+                bestStart = 0, bestLength = 1;
+            for (int p = 1; p < input.Count; p++)
+            {
+                if (input[p] == input[p - 1])
+                {
+                    length++;
+                    if (length > bestLength)
+                    {
+                        bestLength = length;
+                        bestStart = start;
+                    }
+                }
+                else
+                {
+                    start = p;
+                    length = 1;
+                }
+            }
+            for (int i = bestStart; i < bestStart + bestLength; i++)
+                Console.Write(input[i] + " ");
+        }
+    }
+}
