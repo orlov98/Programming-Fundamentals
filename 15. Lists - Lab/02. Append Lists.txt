@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication39
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> input = Console.ReadLine().Split('|').ToList();
+            List<int[]> lists = new List<int[]>();
+            foreach(var list in input)
+            {
+                string[] separator = { " " };
+                int[] a = list.Split(separator, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToArray();
+                lists.Add(a);
+            }
+            for (int i = lists.Count - 1; i >= 0; i--)
+            {
+                Console.Write(String.Join(" ", lists[i]));
+                Console.Write(" ");
+            }
+        }
+    }
+}

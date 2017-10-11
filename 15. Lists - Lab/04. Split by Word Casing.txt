@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication39
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char[] separators = { ',', ';', ':', '.', '!', '(', ')', '"', '\'', '\\', '/', '[', ']', ' ' };
+            List<string> words = Console.ReadLine()
+                .Split(separators, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+            List<string> LowerCaseWords = new List<string>();
+            List<string> UpperCaseWords = new List<string>();
+            List<string> MixedCaseWords = new List<string>();
+            foreach (string word in words)
+            {
+                int CountLower = 0;
+                int CountUpper = 0;
+                int CountOther = 0;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (word[i] >= 'a' && word[i] <= 'z')
+                        CountLower++;
+                    else
+                        if (word[i] >= 'A' && word[i] <= 'Z')
+                        CountUpper++;
+                    else
+                        CountOther++;
+                }
+                if (CountUpper == 0 && CountOther == 0)
+                    LowerCaseWords.Add(word);
+                else if (CountLower == 0 && CountOther == 0)
+                    UpperCaseWords.Add(word);
+                else
+                    MixedCaseWords.Add(word);
+            }
+            Console.WriteLine("Lower-case: " + String.Join(", ", LowerCaseWords));
+            Console.WriteLine("Mixed-case: " + String.Join(", ", MixedCaseWords));
+            Console.WriteLine("Upper-case: " + String.Join(", ", UpperCaseWords));
+        }
+    }
+}
