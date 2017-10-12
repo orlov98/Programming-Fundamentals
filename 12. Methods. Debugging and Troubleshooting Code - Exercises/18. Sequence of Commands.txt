@@ -1,0 +1,93 @@
+using System;
+using System.Linq;
+
+public class SequenceOfCommands
+{ 
+    public static void Main()
+    {
+        char[] ArgumentsDelimiter = { ' ' };
+        int sizeOfArray = int.Parse(Console.ReadLine());
+        long[] array = Console.ReadLine()
+            .Split(ArgumentsDelimiter, StringSplitOptions.RemoveEmptyEntries)
+            .Select(long.Parse)
+            .ToArray();
+        string[] command = Console.ReadLine()
+            .Split(' ')
+            .ToArray();
+        while (!command[0].Equals("stop"))
+        {
+
+            PerformAction(array, command);
+            PrintArray(array);
+            Console.WriteLine();
+            command = Console.ReadLine()
+            .Split(' ')
+            .ToArray();
+        }
+    }
+
+    static long[] PerformAction(long[] array, string[] command)
+    {
+        switch (command[0])
+        {
+            case "multiply":
+                {
+                    int pos = int.Parse(command[1]) - 1;
+                    int value = int.Parse(command[2]);
+                    array[pos] = array[pos] * value;
+                    break;
+                }
+            case "add":
+                {
+                    int pos = int.Parse(command[1]) - 1;
+                    int value = int.Parse(command[2]);
+                    array[pos] = array[pos] + value;
+                    break;
+                }
+            case "subtract":
+                {
+                    int pos = int.Parse(command[1]) - 1;
+                    int value = int.Parse(command[2]);
+                    array[pos] = array[pos] - value;
+                    break;
+                }
+            case "lshift":
+                array = ArrayShiftLeft(array);
+                break;
+            case "rshift":
+                array = ArrayShiftRight(array);
+                break;
+        }
+        return array;
+    }
+
+    private static long[] ArrayShiftRight(long[] array)
+    {
+        long x = array[array.Length - 1];
+        for (int i = array.Length - 1; i >= 1; i--)
+        {
+            array[i] = array[i - 1];
+        }
+        array[0] = x;
+        return array;
+    }
+
+    private static long[] ArrayShiftLeft(long[] array)
+    {
+        long x = array[0];
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            array[i] = array[i + 1];
+        }
+        array[array.Length - 1] = x;
+        return array;
+    }
+
+    private static void PrintArray(long[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            Console.Write(array[i] + " ");
+        }
+    }
+}
