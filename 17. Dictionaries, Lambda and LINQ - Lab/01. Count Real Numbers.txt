@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication40
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var count = new SortedDictionary<double, int>();
+            var numbers = Console.ReadLine()
+                .Split(' ')
+                .Select(double.Parse);
+            foreach (var num in numbers)
+            {
+                if (count.ContainsKey(num))
+                    count[num]++;
+                else
+                    count[num] = 1;
+            }
+            foreach (var pair in count)
+                Console.WriteLine("{0} -> {1}", pair.Key, pair.Value);
+        }
+    }
+}
