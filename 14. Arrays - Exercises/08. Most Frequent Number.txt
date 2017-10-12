@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+                int bestNum = input[0], bestCount = 1;
+            for (int i = 0; i < input.Length; i++)
+            {
+                int num = input[i], count = 1;
+                for (int p = i + 1; p < input.Length; p++)
+                {
+                    if (num == input[p])
+                    {
+                        count++;
+                        if (count > bestCount)
+                        {
+                            bestCount = count;
+                            bestNum = num;
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(bestNum);
+        }
+    }
+}
