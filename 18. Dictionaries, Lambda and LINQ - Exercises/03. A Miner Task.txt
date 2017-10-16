@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication41
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string key = Console.ReadLine();
+            var resources = new Dictionary<string, int>();
+            while (key != "stop")
+            {
+                int value = 0;
+                string valueStr = Console.ReadLine();
+                if (valueStr == "stop")
+                    break;
+                else
+                    value = int.Parse(valueStr);
+                if (!resources.ContainsKey(key))
+                {
+                    resources[key] = value;
+                }
+                else
+                {
+                    resources[key] += value;
+                }
+                key = Console.ReadLine();
+            }
+            foreach(var pair in resources)
+                Console.WriteLine("{0} -> {1}", pair.Key, pair.Value);
+        }
+    }
+}
