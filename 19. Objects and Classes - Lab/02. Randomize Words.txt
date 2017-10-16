@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication43
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] words = Console.ReadLine().Split(' ');
+            Random rnd = new Random();
+            for (int p1 = 0; p1 < words.Length; p1++)
+            {
+                int p2 = rnd.Next(words.Length);
+                string x = words[p1];
+                words[p1] = words[p2];
+                words[p2] = x;
+            }
+            Console.WriteLine(String.Join(Environment.NewLine, words));
+        }
+    }
+}

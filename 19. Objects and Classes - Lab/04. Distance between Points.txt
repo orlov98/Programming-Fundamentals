@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace ConsoleApplication43
+{
+    class Program
+    {
+        static Point ReadPoint()
+        {
+            int[] input = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+            Point point = new Point();
+            point.X = input[0];
+            point.Y = input[1];
+            return point;
+        }
+        static double CalcDistance(Point p1, Point p2)
+        {
+            int x1 = p1.X;
+            int x2 = p2.X;
+            int y1 = p1.Y;
+            int y2 = p2.Y;
+            double distance = Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+            return distance;
+        }
+        static void Main(string[] args)
+        {
+            Point A = ReadPoint();
+            Point B = ReadPoint();
+            Console.WriteLine("{0:f3}", CalcDistance(A, B));
+        }
+    }
+
+    public class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+}
