@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToList();
+            int[] len = new int[numbers.Count];
+            int[] prev = new int[numbers.Count];
+            for (int p = 0; p < numbers.Count; p++)
+            {
+                int left = -1;
+                for (int i = 0; i < p; i++)
+                {
+                    if (numbers[i] < numbers[p])
+                    {
+                        if (left == -1 || len[left] < len[i])
+                            left = i;
+                    }
+                }
+                if (left != -1)
+                    len[p] = 1 + len[left];
+                else
+                    len[p] = 1;
+                prev[p] = left;
+            }
+            int pos = 0;
+            for (int i = 1; i < numbers.Count; i++)
+            {
+                if (len[pos] < len[i])
+                    pos = i;
+            }
+            List<int> LIS = new List<int>();
+            while (pos > -1)
+            {
+                LIS.Insert(0, numbers[pos]);
+                pos = prev[pos];
+            }
+            Console.WriteLine(String.Join(" ", LIS));
+        }
+    }
+}

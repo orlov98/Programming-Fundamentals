@@ -1,0 +1,96 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToList();
+            string[] commands = Console.ReadLine()
+                .Split(' ')
+                .ToArray();
+            while (commands[0] != "print")
+            {
+                if (commands[0] == "add")
+                {
+                    int index = int.Parse(commands[1]);
+                    int element = int.Parse(commands[2]);
+                    numbers.Insert(index, element);
+                }
+                else if (commands[0] == "addMany")
+                {
+                    int index = int.Parse(commands[1]);
+                    int[] elements = new int[commands.Length - 2];
+                    for (int i = elements.Length - 1; i >= 0; i--)
+                    {
+                        elements[i] = int.Parse(commands[i + 2]);
+                        numbers.Insert(index, elements[i]);
+                    }
+                }
+                else if (commands[0] == "contains")
+                {
+                    int element = int.Parse(commands[1]);
+                    if (!numbers.Contains(element))
+                    {
+                        Console.WriteLine(-1);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < numbers.Count; i++)
+                        {
+                            if (numbers[i] == element)
+                            {
+                                Console.WriteLine(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (commands[0] == "remove")
+                {
+                    int index = int.Parse(commands[1]);
+                    numbers.RemoveAt(index);
+                }
+                else if (commands[0] == "shift")
+                {
+                    int positions = int.Parse(commands[1]);
+                    for (int i = 0; i < positions; i++)
+                    {
+                        numbers.Add(numbers[0]);
+                        numbers.RemoveAt(0);
+                    }
+                }
+                else if (commands[0] == "sumPairs")
+                {
+                    List<int> sum = new List<int>();
+                    for (int i = 0; i < numbers.Count; i += 2)
+                    {
+                        if (i + 1 < numbers.Count)
+                        {
+                            sum.Add(numbers[i] + numbers[i + 1]);
+                        }
+                        else
+                        {
+                            sum.Add(numbers[i]);
+                        }
+                    }
+                    numbers.Clear();
+                    foreach (var number in sum)
+                        numbers.Add(number);
+                }
+                commands = Console.ReadLine()
+                .Split(' ')
+                .ToArray();
+            }
+            Console.WriteLine("[" + String.Join(", ", numbers) + "]");
+        }
+    }
+}
