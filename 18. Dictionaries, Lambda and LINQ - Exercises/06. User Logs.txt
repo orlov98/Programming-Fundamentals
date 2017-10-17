@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication41
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string command = Console.ReadLine();
+            var usersIP = new SortedDictionary<string, Dictionary<string, int>>();
+            var countIP = new Dictionary<string, int>();
+            while (command != "end")
+            {
+                string[] commands = command
+                    .Split(' ')
+                    .ToArray();
+                string IP = commands[0].Substring(3);
+                string user = commands[2].Substring(5);
+                if (!usersIP.ContainsKey(user))
+                {
+                    usersIP.Add(user, new Dictionary<string, int>());
+                }
+                if (!usersIP[user].ContainsKey(IP))
+                {
+                    usersIP[user].Add(IP, 1);
+                }
+                else
+                {
+                    usersIP[user][IP]++;
+                }
+                command = Console.ReadLine();
+            }
+            foreach(var pair in usersIP)
+            {
+                Console.WriteLine("{0}: ", pair.Key);
+                foreach(var pair2 in pair.Value)
+                {
+                    if (pair2.Key != pair.Value.Keys.Last())
+                        Console.Write("{0} => {1}, ", pair2.Key, pair2.Value);
+                    else
+                        Console.WriteLine("{0} => {1}.", pair2.Key, pair2.Value);
+                }
+            }
+        }
+    }
+}

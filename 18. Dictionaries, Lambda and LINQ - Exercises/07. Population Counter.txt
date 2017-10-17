@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication41
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            var CountryPopulationByCities = new Dictionary<string, Dictionary<string, int>>();
+            var CountryTotalPopulation = new Dictionary<string, long>();
+            while (input != "report")
+            {
+                string[] commands = input
+                    .Split('|')
+                    .ToArray();
+                string country = commands[1];
+                string city = commands[0];
+                int population = int.Parse(commands[2]);
+                if (!CountryPopulationByCities.ContainsKey(country))
+                {
+                    CountryPopulationByCities.Add(country, new Dictionary<string, int>());
+                    CountryPopulationByCities[country].Add(city, population);
+                    CountryTotalPopulation.Add(country, population);
+                }
+                else
+                {
+                    CountryPopulationByCities[country].Add(city, population);
+                    CountryTotalPopulation[country] += population;
+                }
+                input = Console.ReadLine();
+            }
+            var sortedCountryTotalPopulation = CountryTotalPopulation.OrderByDescending(x => x.Value);
+            var sortedCountryPopulationByCities = new Dictionary<string, Dictionary<string, int>>();
+            foreach(var country in CountryPopulationByCities)
+            {
+                var sortedCities = country.Value.OrderByDescending(x => x.Value);
+                sortedCountryPopulationByCities.Add(country.Key, new Dictionary<string, int>());
+                foreach (var city in sortedCities)
+                    sortedCountryPopulationByCities[country.Key].Add(city.Key, city.Value);
+            }
+            foreach(var country in sortedCountryTotalPopulation)
+            {
+                Console.WriteLine($"{country.Key} (total population: {country.Value})");
+                foreach(var city in sortedCountryPopulationByCities[country.Key])
+                {
+                    Console.WriteLine($"=>{city.Key}: {city.Value}");
+                }
+            }
+        }
+    }
+}
