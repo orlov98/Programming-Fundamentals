@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication41
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            var venuePerformances = new Dictionary<string, Dictionary<string, long>>();
+            while (input != "End")
+            {
+                string[] NameSplit = input
+                    .Split('@')
+                    .ToArray();
+                if (NameSplit[0][NameSplit[0].Length - 1] == ' ')
+                {
+                    string name = NameSplit[0].Trim();
+                    string[] inputSplit = NameSplit[1]
+                        .Split(' ')
+                        .ToArray();
+                    if (inputSplit.Length >= 3)
+                    {
+                        try
+                        {
+                            int ticketsCount = int.Parse(inputSplit[inputSplit.Length - 1]);
+                            int ticketsPrice = int.Parse(inputSplit[inputSplit.Length - 2]);
+                            string venue = "";
+                            for (int i = 0; i < inputSplit.Length - 2; i++)
+                                venue += inputSplit[i] + " ";
+                            long sum = ticketsCount * ticketsPrice;
+                            if (!venuePerformances.ContainsKey(venue))
+                                venuePerformances.Add(venue, new Dictionary<string, long>());
+                            if (!venuePerformances[venue].ContainsKey(name))
+                                venuePerformances[venue].Add(name, 0);
+                            venuePerformances[venue][name] += sum;
+                        }
+                        catch(FormatException)
+                        {
+
+                        }
+                    }
+                }
+                input = Console.ReadLine();
+            }
+            foreach(var Venue in venuePerformances)
+            {
+                Console.WriteLine(Venue.Key);
+                var sortedSingers = venuePerformances[Venue.Key].OrderByDescending(x => x.Value);
+                foreach(var concert in sortedSingers)
+                    Console.WriteLine("#  {0} -> {1}", concert.Key, concert.Value);
+            }
+        }
+    }
+}

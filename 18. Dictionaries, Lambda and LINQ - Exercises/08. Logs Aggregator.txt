@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication41
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            var userLogs = new SortedDictionary<string, int>();
+            var userIP = new SortedDictionary<string, List<string>>();
+            for (int i = 0; i < n; i++)
+            {
+                string[] input = Console.ReadLine()
+                    .Split(' ')
+                    .ToArray();
+                if (userLogs.ContainsKey(input[1]))
+                {
+                    userLogs[input[1]] += int.Parse(input[2]);
+                    userIP[input[1]].Add(input[0]);
+                }
+                else
+                {
+                    userLogs.Add(input[1], int.Parse(input[2]));
+                    userIP.Add(input[1], new List<string>());
+                    userIP[input[1]].Add(input[0]);
+                }
+            }
+            foreach(var user in userLogs.Keys)
+            {
+                Console.Write("{0}: {1} [", user, userLogs[user]);
+                var IP = userIP[user].Distinct();
+                IP = IP.OrderBy(x => x).ToList();
+                Console.Write(String.Join(", ", IP));
+                Console.WriteLine("]");
+            }
+        }
+    }
+}

@@ -1,0 +1,91 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication41
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var materials = new Dictionary<string, int>();
+            materials.Add("shards", 0);
+            materials.Add("fragments", 0);
+            materials.Add("motes", 0);
+            var junk = new Dictionary<string, int>();
+            for (;;)
+            {
+                string[] input = Console.ReadLine()
+                    .ToLower()
+                    .Split(' ')
+                    .ToArray();
+                for (int i = 1; i < input.Length; i += 2)
+                {
+                    if (input[i] == "shards" ||
+                        input[i] == "fragments" ||
+                        input[i] == "motes")
+                    {
+                        materials[input[i]] += int.Parse(input[i - 1]);
+                    }
+                    else
+                    {
+                        if (junk.ContainsKey(input[i]))
+                            junk[input[i]] += int.Parse(input[i - 1]);
+                        else
+                            junk.Add(input[i], int.Parse(input[i - 1]));
+                    }
+                    if (materials.ContainsKey("shards"))
+                    {
+                        if (materials["shards"] >= 250)
+                        {
+                            Console.WriteLine("Shadowmourne obtained!");
+                            materials["shards"] -= 250;
+                            var sortedMaterials = materials.OrderByDescending(x => x.Value)
+                                .ThenBy(x => x.Key);
+                            var sortedJunk = junk.OrderBy(x => x.Key);
+                            foreach (var item in sortedMaterials)
+                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                            foreach (var item in sortedJunk)
+                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                            return;
+                        }
+                    }
+                    if (materials.ContainsKey("fragments"))
+                    {
+                        if (materials["fragments"] >= 250)
+                        {
+                            Console.WriteLine("Valanyr obtained!");
+                            materials["fragments"] -= 250;
+                            var sortedMaterials = materials.OrderByDescending(x => x.Value)
+                                .ThenBy(x => x.Key);
+                            var sortedJunk = junk.OrderBy(x => x.Key);
+                            foreach (var item in sortedMaterials)
+                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                            foreach (var item in sortedJunk)
+                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                            return;
+                        }
+                    }
+                    if (materials.ContainsKey("motes"))
+                    {
+                        if (materials["motes"] >= 250)
+                        {
+                            Console.WriteLine("Dragonwrath obtained!");
+                            materials["motes"] -= 250;
+                            var sortedMaterials = materials.OrderByDescending(x => x.Value)
+                                .ThenBy(x => x.Key);
+                            var sortedJunk = junk.OrderBy(x => x.Key);
+                            foreach (var item in sortedMaterials)
+                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                            foreach (var item in sortedJunk)
+                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
