@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace _06.Fix_Emails
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] input = File.ReadAllLines("input.txt");
+            var accounts = new Dictionary<string, string>();
+            string name = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                string mail = "";
+                bool filter = false;
+                if (i % 2 == 0)
+                {
+                    name = input[i];
+                    if (!accounts.ContainsKey(name))
+                        accounts.Add(name, "");
+                }
+                else
+                {
+                    mail = input[i];
+                    if (mail.Length >= 2)
+                    {
+                        if (mail.ToLower()[mail.Length - 2] == 'u')
+                        {
+                            if (mail.ToLower()[mail.Length - 1] == 's' ||
+                                mail.ToLower()[mail.Length - 1] == 'k')
+                                filter = true;
+                        }
+                    }
+                }
+                if (!filter)
+                    accounts[name] = mail;
+                else
+                    accounts.Remove(name);
+            }
+            List<string> output = new List<string>();
+            foreach (var pair in accounts)
+                output.Add($"{pair.Key} -> {pair.Value}");
+            File.WriteAllLines("output.txt", output);
+        }
+    }
+}

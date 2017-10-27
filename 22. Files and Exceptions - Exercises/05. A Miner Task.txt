@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace _05.A_Miner_Task
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] input = File.ReadAllLines("input.txt");
+            var resources = new Dictionary<string, int>();
+            string key = "";
+            int value = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    key = input[i];
+                    if (!resources.ContainsKey(key))
+                    {
+                        resources.Add(key, 0);
+                    }
+                }
+                else
+                {
+                    value = int.Parse(input[i]);
+                    resources[key] += value;
+                }
+            }
+            List<string> result = new List<string>();
+            foreach (var pair in resources)
+                result.Add($"{pair.Key} -> {pair.Value}");
+            File.WriteAllLines("output.txt", result);
+        }
+    }
+}

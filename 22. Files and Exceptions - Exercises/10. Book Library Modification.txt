@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+using System.IO;
+
+namespace _10.Book_Library_Modification
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] Input = File.ReadAllLines("input.txt");
+            Library library = new Library();
+            library.Books = new List<Book>();
+            for (int i = 0; i < Input.Length - 1; i++)
+            {
+                string[] input = Input[i]
+                    .Split(' ')
+                    .ToArray();
+                Book book = new Book();
+                book.Title = input[0];
+                book.Author = input[1];
+                book.Publisher = input[2];
+                book.ReleaseDate = DateTime.ParseExact(input[3], "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                book.ISBN_Number = input[4];
+                book.Price = double.Parse(input[5]);
+                library.Books.Add(book);
+            }
+            DateTime date = DateTime.ParseExact(Input[Input.Length - 1], "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            var BooksAfterGivenDate = new Dictionary<string, DateTime>();
+            foreach (var book in library.Books)
+            {
+                if (date < book.ReleaseDate)
+                {
+                    BooksAfterGivenDate.Add(book.Title, book.ReleaseDate);
+                }
+            }
+            var SortedBooksAfterGivenDate = BooksAfterGivenDate
+                .OrderBy(x => x.Value)
+                .ThenBy(x => x.Key);
+            List<string> output = new List<string>();
+            foreach (var book in SortedBooksAfterGivenDate)
+            {
+                output.Add($"{book.Key} -> {book.Value.ToString("dd.MM.yyyy")}");
+            }
+            File.WriteAllLines("output.txt", output);
+        }
+    }
+
+    class Library
+    {
+        public string Name { get; set; }
+        public List<Book> Books { get; set; }
+    }
+    class Book
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string ISBN_Number { get; set; }
+        public double Price { get; set; }
+    }
+}

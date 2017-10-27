@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace _01.Most_Frequent_Number
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = File.ReadAllText("input.txt")
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+            int bestNum = input[0], bestCount = 1;
+            for (int i = 0; i < input.Length; i++)
+            {
+                int num = input[i], count = 1;
+                for (int p = i + 1; p < input.Length; p++)
+                {
+                    if (num == input[p])
+                    {
+                        count++;
+                        if (count > bestCount)
+                        {
+                            bestCount = count;
+                            bestNum = num;
+                        }
+                    }
+                }
+            }
+            File.WriteAllText("output.txt", bestNum.ToString());
+        }
+    }
+}

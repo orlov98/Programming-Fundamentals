@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace _04.Max_Seq_of_Equal_Elements
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> input = File.ReadAllText("input.txt")
+                .Split(' ')
+                .Select(int.Parse)
+                .ToList();
+            int start = 0, length = 1,
+                bestStart = 0, bestLength = 1;
+            for (int p = 1; p < input.Count; p++)
+            {
+                if (input[p] == input[p - 1])
+                {
+                    length++;
+                    if (length > bestLength)
+                    {
+                        bestLength = length;
+                        bestStart = start;
+                    }
+                }
+                else
+                {
+                    start = p;
+                    length = 1;
+                }
+            }
+            StringBuilder result = new StringBuilder();
+            for (int i = bestStart; i < bestStart + bestLength; i++)
+                result.Append(input[i] + " ");
+            File.WriteAllText("output.txt", result.ToString());
+        }
+    }
+}

@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+using System.IO;
+
+namespace _09.Book_Library
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] Input = File.ReadAllLines("input.txt");
+            Library library = new Library();
+            library.Books = new List<Book>();
+            for (int i = 0; i < Input.Length; i++)
+            {
+                string[] input = Input[i]
+                    .Split(' ')
+                    .ToArray();
+                Book book = new Book();
+                book.Title = input[0];
+                book.Author = input[1];
+                book.Publisher = input[2];
+                book.ReleaseDate = DateTime.ParseExact(input[3], "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                book.ISBN_Number = input[4];
+                book.Price = double.Parse(input[5]);
+                library.Books.Add(book);
+            }
+            var AuthorSales = new Dictionary<string, double>();
+            foreach (var book in library.Books)
+            {
+                if (!AuthorSales.ContainsKey(book.Author))
+                    AuthorSales.Add(book.Author, book.Price);
+                else
+                    AuthorSales[book.Author] += book.Price;
+            }
+            var SortedAuthorSales = AuthorSales
+                .OrderByDescending(x => x.Value)
+                .ThenBy(x => x.Key);
+            List<string> output = new List<string>();
+            foreach (var author in SortedAuthorSales)
+            {
+                output.Add($"{author.Key} -> {author.Value:f2}");
+            }
+            File.WriteAllLines("output.txt", output);
+        }
+    }
+
+    class Library
+    {
+        public string Name { get; set; }
+        public List<Book> Books { get; set; }
+    }
+    class Book
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string ISBN_Number { get; set; }
+        public double Price { get; set; }
+    }
+}

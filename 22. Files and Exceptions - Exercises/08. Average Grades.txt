@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace _08.Average_Grades
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] Input = File.ReadAllLines("input.txt");
+            List<Students> students = new List<Students>();
+            for (int i = 0; i < Input.Length; i++)
+            {
+                Students person = new Students();
+                string[] input = Input[i]
+                    .Split(' ')
+                    .ToArray();
+                person.Name = input[0];
+                List<double> grades = new List<double>();
+                for (int k = 1; k < input.Length; k++)
+                    grades.Add(double.Parse(input[k]));
+                person.Grades = grades;
+                students.Add(person);
+            }
+            List<Students> BestStudents = students.Where(x => x.AverageGrade(x.Grades) >= 5).ToList();
+            BestStudents = BestStudents
+                .OrderBy(x => x.Name)
+                .ThenByDescending(x => x.AverageGrade(x.Grades))
+                .ToList();
+            List<string> output = new List<string>();
+            foreach (var student in BestStudents)
+                output.Add($"{student.Name} -> {student.AverageGrade(student.Grades):f2}");
+            File.WriteAllLines("output.txt", output);
+        }
+    }
+
+    class Students
+    {
+        public string Name { get; set; }
+        public List<double> Grades { get; set; }
+        public double AverageGrade(List<double> Grades)
+        {
+            double AverageGrade = Grades.Average();
+            return AverageGrade;
+        }
+
+    }
+}

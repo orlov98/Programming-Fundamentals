@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace _03.Equal_Sums
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = File.ReadAllText("input.txt")
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                int leftSum = 0, rightSum = 0;
+                for (int p = i - 1; p >= 0; p--)
+                    leftSum += numbers[p];
+                for (int p = i + 1; p < numbers.Length; p++)
+                    rightSum += numbers[p];
+                if (leftSum == rightSum)
+                {
+                    File.WriteAllText("output.txt", i.ToString());
+                    return;
+                }
+            }
+            File.WriteAllText("output.txt", "no");
+        }
+    }
+}
