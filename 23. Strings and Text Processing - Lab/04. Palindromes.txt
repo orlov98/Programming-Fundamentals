@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication50
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] words = Console.ReadLine()
+                .Split(new char[] { ' ', ',', '.', '?', '!' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+            List<string> Palindromes = new List<string>();
+            foreach (var word in words)
+            {
+                char[] ReversedCharsInWord = word.Reverse().ToArray();
+                string reversedWord = String.Join("", ReversedCharsInWord);
+                if (word.Equals(reversedWord))
+                    Palindromes.Add(word);
+            }
+            Palindromes = Palindromes.Distinct().ToList();
+            Palindromes = Palindromes.OrderBy(x => x).ToList();
+            Console.WriteLine(String.Join(", ", Palindromes));
+        }
+    }
+}

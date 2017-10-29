@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication49
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var text = Console.ReadLine().ToLower();
+            var patern = Console.ReadLine().ToLower();
+            var count = 0;
+            var index = -1;
+            while (true)
+            {
+                index = text.IndexOf(patern, index + 1);
+                if (index == -1)
+                    break;
+                else
+                    count++;
+            }
+            Console.WriteLine(count);
+        }
+    }
+}
