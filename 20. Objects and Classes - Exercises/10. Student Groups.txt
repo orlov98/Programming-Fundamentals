@@ -1,0 +1,128 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input;
+            List<Town> towns = new List<Town>();
+            Town currentTown = new Town();
+            while((input = Console.ReadLine()) != "End")
+            {
+                try
+                {
+                    currentTown = ReadTown(input);
+                    towns.Add(currentTown);
+                }
+                catch (Exception)
+                {
+                    Student newStudent = ReadStudent(input);
+                    currentTown.Students.Add(newStudent);
+                }
+            }
+            towns = towns.OrderBy(x => x.Name).ToList();
+            List<Group> groups = DistributeStudentsIntoGroups(towns);
+            Console.WriteLine($"Created {groups.Count} groups in {towns.Count} towns:");
+            Output(groups);
+        }
+
+        static Town ReadTown(string input)
+        {
+            string[] SeatsInTown = input
+                        .Split(new string[] { " => " }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToArray();
+            Town newTown = new Town();
+            newTown.Name = SeatsInTown[0];
+            string[] SeatsTextSplit = SeatsInTown[1].Split(' ').ToArray();
+            newTown.Seats = int.Parse(SeatsTextSplit[0]);
+            newTown.Students = new List<Student>();
+            return newTown;
+        }
+
+        static Student ReadStudent(string input)
+        {
+            string[] SplitInfoAboutStudent = input.Split('|').ToArray();
+            Student newStudent = new Student();
+            newStudent.Name = SplitInfoAboutStudent[0].Trim();
+            newStudent.Email = SplitInfoAboutStudent[1].Trim();
+            newStudent.RegistrationDate = DateTime.ParseExact(SplitInfoAboutStudent[2].Trim(),
+                                                                "d-MMM-yyyy", CultureInfo.InvariantCulture);
+            return newStudent;
+        }
+
+        static List<Group> DistributeStudentsIntoGroups(List<Town> Towns)
+        {
+            List<Group> groups = new List<Group>();
+            foreach(var town in Towns)
+            {
+                town.Students = town.Students
+                    .OrderBy(x => x.RegistrationDate)
+                    .ThenBy(x => x.Name).ThenBy(x => x.Email)
+                    .ToList();
+                int counter = town.Students.Count / town.Seats;
+                if (town.Students.Count % town.Seats != 0)
+                    counter++;
+                for (int i = 0; i < counter; i++)
+                {
+                    Group currentGroup = new Group();
+                    currentGroup.Town = town;
+                    currentGroup.Students = new List<Student>();
+                    for (int k = 0; k < town.Seats; k++)
+                    {
+                        try
+                        {
+                            currentGroup.Students.Add(town.Students[i * town.Seats + k]);
+                        }
+                        catch(Exception)
+                        {
+                            break;
+                        }
+                    }
+                    groups.Add(currentGroup);
+                }
+            }
+            return groups;
+        }
+
+        static void Output(List<Group> Groups)
+        {
+            foreach(var group in Groups)
+            {
+                List<string> emails = new List<string>();
+                Console.Write($"{group.Town.Name} => ");
+                foreach(var student in group.Students)
+                {
+                    emails.Add(student.Email);
+                }
+                Console.WriteLine(String.Join(", ", emails));
+            }
+        }
+    }
+
+    class Student
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime RegistrationDate { get; set; }
+    }
+
+    class Town
+    {
+        public string Name { get; set; }
+        public int Seats { get; set; }
+        public List<Student> Students { get; set; }
+    }
+
+    class Group
+    {
+        public Town Town { get; set; }
+        public List<Student> Students { get; set; }
+    }
+}

@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            SortedDictionary<string, Student> students = new SortedDictionary<string, Student>();
+            string input;
+            while((input = Console.ReadLine()) != "end of dates")
+            {
+                string[] NameSplitFromDates = input.Split(' ').ToArray();
+                string name = NameSplitFromDates[0];
+                if (!students.ContainsKey(name))
+                {
+                    students.Add(name, new Student());
+                    students[name].AttendanceDates = new List<DateTime>();
+                    students[name].Comments = new List<string>();
+                }
+                if (NameSplitFromDates.Count() > 1)
+                {
+                    string[] dates = NameSplitFromDates[1].Split(',').ToArray();
+                    foreach (var date in dates)
+                    {
+                        students[name].AttendanceDates
+                            .Add(DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+                    }
+                }
+            }
+            foreach(var student in students.Values)
+            {
+                student.AttendanceDates = student.AttendanceDates.OrderBy(x => x).ToList();
+            }
+            while((input = Console.ReadLine()) != "end of comments")
+            {
+                string[] NameSplitFromComment = input.Split('-').ToArray();
+                string name = NameSplitFromComment[0];
+                if (students.ContainsKey(name))
+                {
+                    students[name].Comments.Add(NameSplitFromComment[1]);
+                }
+            }
+            foreach(var student in students)
+            {
+                Console.WriteLine(student.Key);
+                Console.WriteLine("Comments: ");
+                foreach(var comment in student.Value.Comments)
+                {
+                    Console.WriteLine($"- {comment}");
+                }
+                Console.WriteLine("Dates attended: ");
+                foreach(var date in student.Value.AttendanceDates)
+                {
+                    Console.WriteLine($"-- {date.ToString("dd/MM/yyyy")}");
+                }
+            }
+        }   
+    }
+
+    class Student
+    {
+        public List<string> Comments { get; set; }
+        public List<DateTime> AttendanceDates { get; set; }  
+    }
+}

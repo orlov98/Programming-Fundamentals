@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication44
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input1 = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+            int[] input2 = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+            Circle c1 = new Circle();
+            Point center1 = new Point();
+            Circle c2 = new Circle();
+            Point center2 = new Point();
+            center1.X = input1[0]; center1.Y = input1[1];
+            center2.X = input2[0]; center2.Y = input2[1];
+            c1.Center = center1; c1.Radius = input1[2];
+            c2.Center = center2; c2.Radius = input2[2];
+            if (Intersect(c1, c2))
+                Console.WriteLine("Yes");
+            else
+                Console.WriteLine("No");
+        }
+
+        static bool Intersect(Circle c1, Circle c2)
+        {
+            Point center1 = c1.Center;
+            Point center2 = c2.Center;
+            double distance = Math.Sqrt(Math.Pow(center1.X - center2.X, 2) + Math.Pow(center1.Y - center2.Y, 2));
+            if (distance <= c1.Radius + c2.Radius)
+                return true;
+            else
+                return false;
+        }
+    }
+
+    class Circle
+    {
+        public Point Center { get; set; }
+        public double Radius { get; set; }
+    }
+
+    class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+}

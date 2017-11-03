@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace ConsoleApplication44
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DateTime[] holidays =
+            {
+                DateTime.ParseExact("1-JAN", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("3-MAR", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("1-MAY", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("6-MAY", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("24-MAY", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("6-SEP", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("22-SEP", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("1-NOV", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("24-DEC", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("25-DEC", "d-MMM", CultureInfo.InvariantCulture),
+                DateTime.ParseExact("26-DEC", "d-MMM", CultureInfo.InvariantCulture)
+            };
+            DateTime startDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            int counter = 0;
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                if (date.DayOfWeek.ToString() != "Saturday" && date.DayOfWeek.ToString() != "Sunday")
+                {
+                    bool isHoliday = false;
+                    foreach(var holiday in holidays)
+                    {
+                        if (date.Day == holiday.Day && date.Month == holiday.Month)
+                        {
+                            isHoliday = true;
+                            break;
+                        }
+                    }
+                    if (!isHoliday)
+                        counter++;
+                }
+            }
+            Console.WriteLine(counter);
+        }
+    }
+}

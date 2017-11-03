@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, Team> teams = new Dictionary<string, Team>();
+            int n = int.Parse(Console.ReadLine());
+            for (int i = 0; i < n; i++)
+            {
+                string input = Console.ReadLine();
+                string[] CreatorSplitFromTeamName = input.Split('-').ToArray();
+                string creator = CreatorSplitFromTeamName[0];
+                string teamName = CreatorSplitFromTeamName[1];
+                if (TeamCreationRules(teamName, creator, teams))
+                {
+                    teams.Add(teamName, new Team());
+                    teams[teamName].Name = teamName;
+                    teams[teamName].Creator = creator;
+                    Console.WriteLine($"Team {teamName} has been created by {creator}!");
+                    teams[teamName].Members = new List<string>();
+                }
+            }
+            string Input;
+            while ((Input = Console.ReadLine()) != "end of assignment")
+            {
+                string[] UserSplitFromTeamName = Input
+                    .Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToArray();
+                string user = UserSplitFromTeamName[0];
+                string teamName = UserSplitFromTeamName[1];
+                if (JoiningTeam(user, teamName, teams))
+                {
+                    teams[teamName].Members.Add(user);
+                }
+            }
+            var disbandedTeams = teams.Where(x => x.Value.Members.Count == 0);
+            var CreatedTeams = teams.Where(x => x.Value.Members.Count >= 1);
+            CreatedTeams = CreatedTeams.OrderByDescending(x => x.Value.Members.Count).ThenBy(x => x.Key);
+            disbandedTeams = disbandedTeams.OrderBy(x => x.Key);
+            foreach(var team in CreatedTeams)
+            {
+                Console.WriteLine(team.Value.Name);
+                Console.WriteLine($"- {team.Value.Creator}");
+                team.Value.Members = team.Value.Members.OrderBy(x => x).ToList();
+                foreach(var member in team.Value.Members)
+                {
+                    Console.WriteLine($"-- {member}");
+                }
+            }
+            Console.WriteLine("Teams to disband:");
+            foreach(var team in disbandedTeams)
+            {
+                Console.WriteLine(team.Value.Name);
+            }
+        }
+
+        static bool TeamCreationRules(string TeamName, string Creator, Dictionary<string, Team> CreatedTeams)
+        {
+            foreach (var team in CreatedTeams.Values)
+            {
+                if (team.Name.Equals(TeamName))
+                {
+                    Console.WriteLine($"Team {TeamName} was already created!");
+                    return false;
+                }
+            }
+            foreach (var team in CreatedTeams.Values)
+            {
+                if (team.Creator.Equals(Creator))
+                {
+                    Console.WriteLine($"{Creator} cannot create another team!");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        static bool JoiningTeam(string User, string TeamName, Dictionary<string, Team> Teams)
+        {
+            bool ExistingTeam = false;
+            foreach (var team in Teams.Values)
+            {
+                if (team.Name.Equals(TeamName))
+                {
+                    ExistingTeam = true;
+                    break;
+                }
+            }
+            if (!ExistingTeam)
+            {
+                Console.WriteLine($"Team {TeamName} does not exist!");
+                return false;
+            }
+            else
+            {
+                foreach (var team in Teams.Values)
+                {
+                    if (User.Equals(team.Creator))
+                    {
+                        Console.WriteLine($"Member {User} cannot join team {TeamName}!");
+                        return false;
+                    }
+                    else
+                    {
+                        foreach (var member in team.Members)
+                        {
+                            if (User.Equals(member))
+                            {
+                                Console.WriteLine($"Member {User} cannot join team {TeamName}!");
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+    }
+    class Team
+    {
+        public string Name { get; set; }
+        public string Creator { get; set; }
+        public List<string> Members { get; set; }
+    }
+}
