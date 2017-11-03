@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Rectangle r1 = ReadRectangle();
+            Rectangle r2 = ReadRectangle();
+            if (IsInside(r1, r2))
+            {
+                Console.WriteLine("Inside");
+            }
+            else
+            {
+                Console.WriteLine("Not inside");
+            }
+        }
+
+        static bool IsInside (Rectangle r1, Rectangle r2)
+        {
+            if (r1.TopLeftPoint.X >= r2.TopLeftPoint.X &&
+                r1.Right() <= r2.Right() &&
+                r1.TopLeftPoint.Y <= r2.TopLeftPoint.Y &&
+                r1.Bottom() <= r2.Bottom())
+                return true;
+            else
+                return false;
+        }
+
+        static Rectangle ReadRectangle ()
+        {
+            int[] input = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+            Point p = new Point();
+            p.X = input[0];
+            p.Y = input[1];
+            Rectangle r = new Rectangle();
+            r.TopLeftPoint = p;
+            r.Width = input[2];
+            r.Height = input[3];
+            return r;
+        }
+    }
+
+    class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+
+    class Rectangle
+    {
+        public Point TopLeftPoint { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Right ()
+        {
+            int right = TopLeftPoint.X + Width;
+            return right;
+        }
+        public int Bottom ()
+        {
+            int bottom = TopLeftPoint.Y + Height;
+            return bottom;
+        }
+    }
+}

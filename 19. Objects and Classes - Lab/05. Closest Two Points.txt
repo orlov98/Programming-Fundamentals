@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            Point[] points = new Point[n];
+            for (int i = 0; i < n; i++)
+            {
+                Point p = new Point();
+                int[] coordinates = Console.ReadLine()
+                    .Split(' ')
+                    .Select(int.Parse)
+                    .ToArray();
+                p.X = coordinates[0];
+                p.Y = coordinates[1];
+                points[i] = p;
+            }
+            Point[] closestPoints = ClosestTwoPoints(points);
+            double distance = Math.Sqrt(Math.Pow(closestPoints[0].X - closestPoints[1].X, 2) +
+                                        Math.Pow(closestPoints[0].Y - closestPoints[1].Y, 2));
+            Console.WriteLine($"{distance:f3}");
+            Console.WriteLine($"({closestPoints[0].X}, {closestPoints[0].Y})");
+            Console.WriteLine($"({closestPoints[1].X}, {closestPoints[1].Y})");
+
+        }
+
+        static Point[] ClosestTwoPoints(Point[] points)
+        {
+            double bestDistance = Math.Sqrt(Math.Pow(points[0].X - points[1].X, 2) +
+                                        Math.Pow(points[0].Y - points[1].Y, 2));
+            Point[] ClosestPoints = new Point[2];
+            ClosestPoints[0] = points[0];
+            ClosestPoints[1] = points[1];
+            for (int i = 0; i < points.Length - 1; i++)
+            {
+                for (int k = i + 1; k < points.Length; k++)
+                {
+                    double distance = Math.Sqrt(Math.Pow(points[i].X - points[k].X, 2) +
+                                        Math.Pow(points[i].Y - points[k].Y, 2));
+                    if (distance < bestDistance)
+                    {
+                        bestDistance = distance;
+                        ClosestPoints[0] = points[i];
+                        ClosestPoints[1] = points[k];
+                    }
+                }
+            }
+            return ClosestPoints;
+        }
+    }
+
+    class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+
+    }
+}
