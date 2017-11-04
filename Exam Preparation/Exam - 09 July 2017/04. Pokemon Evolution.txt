@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Pokemon> pokemons = new List<Pokemon>();
+            string input;
+            while((input = Console.ReadLine()) != "wubbalubbadubdub")
+            {
+                if (input.Contains("->"))
+                {
+                    Pokemon newPokemon = ReadPokemon(input);
+                    pokemons = AddPokemon(newPokemon, pokemons);
+                }
+                else
+                {
+                    foreach(var pokemon in pokemons)
+                    {
+                        if (pokemon.Name.Equals(input))
+                        {
+                            Console.WriteLine($"# {pokemon.Name}");
+                            foreach(var evolution in pokemon.Evolutions)
+                            {
+                                Console.WriteLine($"{evolution.Type} <-> {evolution.Index}");
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            foreach(var pokemon in pokemons)
+            {
+                Console.WriteLine($"# {pokemon.Name}");
+                pokemon.Evolutions = pokemon.Evolutions.OrderByDescending(x => x.Index).ToList();
+                foreach(var evolution in pokemon.Evolutions)
+                {
+                    Console.WriteLine($"{evolution.Type} <-> {evolution.Index}");
+                }
+            }
+        }
+
+        static Pokemon ReadPokemon(string input)
+        {
+            string[] args = input
+                .Split(new string[] { " -> " }, StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+            Pokemon newPokemon = new Pokemon();
+            newPokemon.Name = args[0];
+            newPokemon.Evolutions = new List<Evolution>();
+            Evolution newEvolution = new Evolution();
+            newEvolution.Type = args[1];
+            newEvolution.Index = int.Parse(args[2]);
+            newPokemon.Evolutions.Add(newEvolution);
+            return newPokemon;
+        }
+
+        static List<Pokemon> AddPokemon(Pokemon newPokemon, List<Pokemon> Pokemons)
+        {
+            bool AddedPokemon = false;
+            foreach(var pokemon in Pokemons)
+            {
+                if (pokemon.Name.Equals(newPokemon.Name))
+                {
+                    AddedPokemon = true;
+                    pokemon.Evolutions.Add(newPokemon.Evolutions[0]);
+                    break;
+                }
+            }
+            if (!AddedPokemon)
+            {
+                Pokemons.Add(newPokemon);
+            }
+            return Pokemons;
+        }
+    }
+
+    class Pokemon
+    {
+        public string Name { get; set; }
+        public List<Evolution> Evolutions { get; set; }
+    }
+
+    class Evolution
+    {
+        public string Type { get; set; }
+        public int Index { get; set; }
+    }
+}

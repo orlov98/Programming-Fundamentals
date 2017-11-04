@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string DidimonPattern = "[^A-Za-z-]+";
+            string BojomonPattern = "[A-Za-z]+-[A-Za-z]+";
+            Regex DidimonRegex = new Regex(DidimonPattern);
+            Regex BojomonRegex = new Regex(BojomonPattern);
+            StringBuilder text = new StringBuilder();
+            text.Append(Console.ReadLine());
+            while(true)
+            {
+                if (!DidimonRegex.IsMatch(text.ToString()))
+                    return;
+                Console.WriteLine(DidimonRegex.Match(text.ToString()));
+                int lastIndexDidi = DidimonRegex.Match(text.ToString()).Index +
+                                 DidimonRegex.Match(text.ToString()).Length;
+                text.Remove(0, lastIndexDidi);
+
+                if (!BojomonRegex.IsMatch(text.ToString()))
+                    return;
+                Console.WriteLine(BojomonRegex.Match(text.ToString()));
+                int lastIndexBojo = BojomonRegex.Match(text.ToString()).Index +
+                                 BojomonRegex.Match(text.ToString()).Length;
+                text.Remove(0, lastIndexBojo);
+            }
+        }
+    }
+}
