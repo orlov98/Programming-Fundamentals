@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace ConsoleApp5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string pattern = @"([A-Z]{2})([0-9]+\.[0-9]+)([A-Za-z]+)\|";
+            Regex weatherForecast = new Regex(pattern);
+            Dictionary<string, double> Temperature = new Dictionary<string, double>();
+            Dictionary<string, string> Weather = new Dictionary<string, string>();
+            string input;
+            while((input = Console.ReadLine()) != "end")
+            {
+                foreach(Match match in weatherForecast.Matches(input))
+                {
+                    string city = match.Groups[1].ToString();
+                    if (!Weather.ContainsKey(city))
+                    {
+                        Temperature.Add(city, 0);
+                        Weather.Add(city, "");
+                    }
+                    Temperature[city] = double.Parse(match.Groups[2].ToString());
+                    Weather[city] = match.Groups[3].ToString();
+                }
+            }
+            var SortedTemperature = Temperature.OrderBy(x => x.Value);
+            foreach(var weatherCast in SortedTemperature)
+            {
+                Console.WriteLine($"{weatherCast.Key} => {weatherCast.Value:f2} => {Weather[weatherCast.Key]}");
+            }
+        }
+    }
+}

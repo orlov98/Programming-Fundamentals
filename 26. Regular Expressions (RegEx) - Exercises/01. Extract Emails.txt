@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace ConsoleApp5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            string[] inputArr = input.Split(' ').ToArray();
+            string pattern = @"\w+([-._]\w+)*@\w+([-.]\w+)*\.\w+([-]\w+)*";
+            Regex valid = new Regex(pattern);
+            foreach (var email in inputArr)
+            {
+                if (valid.IsMatch(email))
+                {
+                    if (email[0] != '-' && email[0] != '.' && email[0] != '_')
+                    Console.WriteLine(valid.Match(email));
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace ConsoleApp5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string keyWord = Console.ReadLine();
+            string pattern = $@"\b[^\.!\?]+[\W]+{keyWord}[\W]+[^\.!\?]+";
+            string input = Console.ReadLine();
+            Regex regex = new Regex(pattern);
+            List<string> sentencesContainingTo = new List<string>();
+            foreach(var match in regex.Matches(input))
+            {
+                Console.WriteLine(match);
+            }
+        }
+    }
+}
