@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string num1 = Console.ReadLine().TrimStart('0');
+            string num2 = Console.ReadLine();
+            int extraDigit = 0;
+            StringBuilder Multiplied = new StringBuilder();
+            int power = int.Parse(num2);
+            if (power == 0)
+            {
+                Console.WriteLine("0");
+                return;
+            }
+            for (int i = num1.Length - 1; i >= 0; i--)
+            {
+                int m = int.Parse(num1[i].ToString()) * power + extraDigit;
+                if (m > 9)
+                {
+                    extraDigit = m / 10;
+                    m = m % 10;
+                }
+                else
+                    extraDigit = 0;
+                Multiplied.Insert(0, m);
+            }
+            if (extraDigit != 0)
+                Multiplied.Insert(0, extraDigit);
+            Console.WriteLine(Multiplied);
+        }
+    }
+}

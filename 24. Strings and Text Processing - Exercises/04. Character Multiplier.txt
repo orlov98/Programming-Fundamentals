@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] input = Console.ReadLine().Split(' ').ToArray();
+            Console.WriteLine(CharacterMultiplier(input[0], input[1]));
+        }
+
+        public static long CharacterMultiplier (string A, string B)
+        {
+            long sum = 0;
+            if (A.Length <= B.Length)
+            {
+                for (int i = 0; i < A.Length; i++)
+                    sum += A[i] * B[i];
+                for (int i = A.Length; i < B.Length; i++)
+                    sum += B[i];
+            }
+            else
+            {
+                for (int i = 0; i < B.Length; i++)
+                    sum += A[i] * B[i];
+                for (int i = B.Length; i < A.Length; i++)
+                    sum += A[i];
+            }
+            return sum;
+        }
+    }
+}

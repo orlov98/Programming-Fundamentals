@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string num1 = Console.ReadLine().TrimStart('0');
+            string num2 = Console.ReadLine().TrimStart('0');
+            int extraDigit = 0;
+            StringBuilder sum = new StringBuilder();
+            if (num1.Length > num2.Length)
+            {
+                num2 = num2.Insert(0, new string('0', num1.Length - num2.Length));
+            }
+            else if (num1.Length < num2.Length)
+            {
+                num1 = num1.Insert(0, new string('0', num2.Length - num1.Length));
+            }
+            for (int i = num1.Length - 1; i >= 0; i--)
+            {
+                int sumDigits = int.Parse(num1[i].ToString()) + int.Parse(num2[i].ToString()) + extraDigit;
+                if (sumDigits > 9)
+                {
+                    sumDigits = sumDigits % 10;
+                    extraDigit = 1;
+                }
+                else
+                    extraDigit = 0;
+                sum.Insert(0, sumDigits);
+            }
+            if (extraDigit == 1)
+                sum.Insert(0, 1);
+            Console.WriteLine(sum);
+        }
+    }
+}

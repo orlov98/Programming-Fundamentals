@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace ConsoleApplication51
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] input = Console.ReadLine().Split(' ').ToArray();
+            List<BigInteger> Numbers = new List<BigInteger>();
+            int NumberBase = int.Parse(input[0]);
+            char[] reversedInputNumberDigits = input[1].ToCharArray().Reverse().ToArray();
+            BigInteger poweredNumBase = 1;
+            for (int i = 0; i < reversedInputNumberDigits.Length; i++)
+            {
+                int digit = int.Parse(reversedInputNumberDigits[i].ToString());
+                BigInteger number = digit * poweredNumBase;
+                poweredNumBase *= NumberBase;
+                Numbers.Add(number);
+            }
+            BigInteger sum = 0;
+            foreach (var number in Numbers)
+            {
+                sum += number;
+            }
+
+            Console.WriteLine(sum);
+        }
+    }
+}

@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace ConsoleApplication51
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] input = Console.ReadLine().Split(' ').ToArray();
+            StringBuilder Result = new StringBuilder();
+            BigInteger Number = BigInteger.Parse(input[1]);
+            int NumberBase = int.Parse(input[0]);
+            while(Number > 0)
+            {
+                Result.Append(Number % NumberBase);
+                Number = Number / NumberBase;
+            }
+            string result = Result.ToString();
+            char[] ResultArray = result.ToCharArray();
+            ResultArray = ResultArray.Reverse().ToArray();
+            Result.Clear();
+            Result.Append(ResultArray);
+            Console.WriteLine(Result);
+        }
+    }
+}

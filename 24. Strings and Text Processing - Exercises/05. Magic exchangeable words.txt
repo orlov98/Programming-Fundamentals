@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] input = Console.ReadLine().Split(' ').ToArray();
+            Console.WriteLine(ExchangeableWords(input[0], input[1]).ToString().ToLower());
+        }
+
+        static bool ExchangeableWords (string A, string B)
+        {
+            Dictionary<char, char> ExchangedCharacters = new Dictionary<char, char>();
+            if (A.Length == B.Length)
+            {
+                for (int i = 0; i < A.Length; i++)
+                {
+                    if (!ExchangedCharacters.ContainsKey(A[i]))
+                    {
+                        ExchangedCharacters.Add(A[i], B[i]);
+                    }
+                    else
+                    {
+                        if (ExchangedCharacters[A[i]] != B[i])
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            else if (A.Length > B.Length)
+            {
+                for (int i = 0; i < B.Length; i++)
+                {
+                    if (!ExchangedCharacters.ContainsKey(A[i]))
+                    {
+                        ExchangedCharacters.Add(A[i], B[i]);
+                    }
+                    else
+                    {
+                        if (ExchangedCharacters[A[i]] != B[i])
+                        {
+                            return false;
+                        }
+                    }
+                }
+                for (int i = B.Length; i < A.Length; i++)
+                {
+                    if (!ExchangedCharacters.ContainsKey(A[i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < A.Length; i++)
+                {
+                    if (!ExchangedCharacters.ContainsKey(B[i]))
+                    {
+                        ExchangedCharacters.Add(B[i], A[i]);
+                    }
+                    else
+                    {
+                        if (ExchangedCharacters[B[i]] != A[i])
+                        {
+                            return false;
+                        }
+                    }
+                }
+                for (int i = A.Length; i < B.Length; i++)
+                {
+                    if (!ExchangedCharacters.ContainsKey(B[i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+}
